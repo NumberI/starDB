@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../app-header";
+import AppHeader from "../app-header";
 import RandomPlanet from "../random-planet";
 import ItemList from "../item-list";
 import PersonDetails from "../person-details";
@@ -9,7 +9,7 @@ import "./App.css";
 const App = () => {
   return (
     <div>
-      <Header />
+      <AppHeader />
       <RandomPlanet />
 
       <div className="row mb2">
