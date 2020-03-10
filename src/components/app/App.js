@@ -5,32 +5,39 @@ import ItemList from "../item-list";
 import PersonDetails from "../person-details";
 
 import "./App.css";
+import ErrorIndicator from "../error-indicator";
 
 export default class App extends Component {
   state = {
     showRandomPlanet: true,
-    selectedPerson: 2
+    selectedPerson: 2,
+    hasError: false
   };
 
   toggleRandomPlanet = () => {
-    this.setState((state) => {
+    this.setState(state => {
       return {
         showRandomPlanet: !state.showRandomPlanet
-      }
+      };
     });
   };
 
-  onPersonSelected = (id) => {
+  onPersonSelected = id => {
     this.setState({
       selectedPerson: id
     });
   };
 
-  render() {
+  componentDidCatch() {
+    console.log("compcatch");
+    this.setState({ hasError: true });
+  }
 
-    const planet = this.state.showRandomPlanet ?
-      <RandomPlanet /> :
-      null;
+  render() {
+    if (this.state.hasError) {
+      return <ErrorIndicator />;
+    }
+    const planet = this.state.showRandomPlanet ? <RandomPlanet /> : null;
 
     return (
       <div className="stardb-app">
@@ -39,7 +46,8 @@ export default class App extends Component {
 
         <button
           className="toggle-planet btn btn-warning btn-lg"
-          onClick={this.toggleRandomPlanet}>
+          onClick={this.toggleRandomPlanet}
+        >
           Toggle Random Planet
         </button>
 
@@ -54,4 +62,4 @@ export default class App extends Component {
       </div>
     );
   }
-};
+}
